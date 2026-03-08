@@ -39,7 +39,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func loginTapped(_ sender: UIButton) {
-        guard let email = emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines),
+    guard let email = emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines),
               let password = passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines),
               !email.isEmpty,
               !password.isEmpty else {
@@ -51,6 +51,20 @@ class ViewController: UIViewController {
             switch result {
             case .success(_):
                 print("User logged in")
+                
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let tabBarController = storyboard.instantiateViewController(withIdentifier: "MainTabBarController") as! UITabBarController
+                
+                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                   let sceneDelegate = windowScene.delegate as? SceneDelegate,
+                   let window = sceneDelegate.window {
+                    window.rootViewController = tabBarController
+                    UIView.transition(with: window,
+                                      duration: 0.3,
+                                      options: .transitionFlipFromRight,
+                                      animations: nil)
+                }
+                
             case .failure(let error):
                 print("Login error: \(error.localizedDescription)")
             }
