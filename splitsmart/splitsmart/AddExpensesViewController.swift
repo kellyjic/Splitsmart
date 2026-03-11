@@ -42,6 +42,8 @@ class AddExpensesViewController: UIViewController {
         splitTableView.delegate = self
 
         setupPayerSegments()
+        selectedMembers = members
+        splitTableView.reloadData()
     }
     
     func setupPayerSegments() {
@@ -59,22 +61,31 @@ class AddExpensesViewController: UIViewController {
     }
     
     func saveExpense() {
-        
-
-        guard let groupId = group?.id else { return }
+        guard let groupId = group?.id else {
+            presentAlert(title: "Missing group", message: "Try reopening the group and adding the expense again.")
+            return
+        }
 
         guard let title = expenseNameField.text,
               let amountText = amountField.text,
               let amount = Double(amountText) else {
-            print("Invalid input")
+            presentAlert(title: "Invalid input", message: "Enter an expense name and a valid amount.")
             return
         }
 
         let amountCents = Int(amount * 100)
         let splitCount = selectedMembers.count
+        guard splitCount > 0 else {
+            presentAlert(title: "No members selected", message: "Select at least one member to split the expense.")
+            return
+        }
+
         let splitAmount = amountCents / splitCount
 
-        guard let payer = selectedPayer else { return }
+        guard let payer = selectedPayer else {
+            presentAlert(title: "Missing payer", message: "Choose who paid for this expense.")
+            return
+        }
 
         db.collection("groups")
             .document(groupId)
@@ -85,16 +96,31 @@ class AddExpensesViewController: UIViewController {
                 "amountCents": amountCents,
                 "paidBy": payer,
                 "members": selectedMembers,
-                "splitAmount": splitAmount
+                "splitAmount": splitAmount,
+                "status": "open",
+                "createdAt": FieldValue.serverTimestamp()
             ]) { error in
 
                 if let error = error {
-                    print("Error saving expense:", error)
+                    self.presentAlert(title: "Could not save expense", message: error.localizedDescription)
                 } else {
-                    print("Expense saved")
-                    self.dismiss(animated: true)
+                    self.navigateBackAfterSave()
                 }
             }
+    }
+
+    private func navigateBackAfterSave() {
+        if let navigationController {
+            navigationController.popViewController(animated: true)
+        } else {
+            dismiss(animated: true)
+        }
+    }
+
+    private func presentAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
     }
 }
 
