@@ -123,7 +123,7 @@
         <!--Home-->
         <scene sceneID="Ei4-AD-1Dn">
             <objects>
-                <viewController title="Home" id="Gc6-PZ-czT" customClass="HomeViewController" customModule="splitsmart" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeViewController" title="Home" id="Gc6-PZ-czT" customClass="HomeViewController" customModule="splitsmart" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XYV-5U-wO0">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="793"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -210,7 +210,7 @@
         <!--Group-->
         <scene sceneID="eyh-z2-AXK">
             <objects>
-                <viewController title="Group" id="oct-iD-D3a" customClass="GroupsViewController" customModule="splitsmart" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GroupsViewController" title="Group" id="oct-iD-D3a" customClass="GroupsViewController" customModule="splitsmart" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9zV-LV-2HB">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -378,7 +378,6 @@
                                 <buttonConfiguration key="configuration" style="filled" title="Confirm"/>
                                 <connections>
                                     <action selector="confirmExpenseTapped:" destination="H2D-bj-F2c" eventType="touchUpInside" id="ibh-av-dBo"/>
-                                    <action selector="createEventTapped:" destination="S2d-vW-4Fg" eventType="touchUpInside" id="lIn-2n-dWg"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -617,19 +616,57 @@
                     <connections>
                         <segue destination="Gc6-PZ-czT" kind="relationship" relationship="viewControllers" id="G9J-Us-Zg6"/>
                         <segue destination="oct-iD-D3a" kind="relationship" relationship="viewControllers" id="g1K-rO-bOz"/>
+                        <segue destination="4yE-BP-cTk" kind="relationship" relationship="viewControllers" id="mvu-9A-7Fh"/>
+                        <segue destination="u9K-Fs-bxD" kind="relationship" relationship="viewControllers" id="iKD-9q-5mM"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cLz-jG-9lg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1415" y="-914"/>
         </scene>
+        <!--History-->
+        <scene sceneID="wWg-Tq-X2R">
+            <objects>
+                <viewController id="4yE-BP-cTk" customClass="HistoryViewController" customModule="splitsmart" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="t6s-EU-gJ5">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="iQ2-SM-DfQ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="History" image="clock.arrow.circlepath" catalog="system" id="Vgo-Xu-AWa"/>
+                    <navigationItem key="navigationItem" title="History" id="ttT-SR-LyX"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="M0o-3j-uTW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4318" y="4"/>
+        </scene>
+        <!--Profile-->
+        <scene sceneID="6sP-EW-yKb">
+            <objects>
+                <viewController id="u9K-Fs-bxD" customClass="ProfileViewController" customModule="splitsmart" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="mF9-Kj-vW6">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="dvm-U6-U8K"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Profile" image="person.crop.circle" catalog="system" id="Wse-7A-e9P"/>
+                    <navigationItem key="navigationItem" title="Profile" id="r4n-S9-uE7"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dWf-aN-LQJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4975" y="4"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="sFt-nU-0VT"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="clock.arrow.circlepath" catalog="system" width="128" height="119"/>
         <image name="house" catalog="system" width="128" height="104"/>
         <image name="person.3" catalog="system" width="128" height="66"/>
+        <image name="person.crop.circle" catalog="system" width="128" height="123"/>
         <namedColor name="WidgetBackground">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
