@@ -108,12 +108,13 @@ class GroupDetailViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
         if segue.identifier == "goToAddExpense",
            let destination = segue.destination as? AddExpensesViewController {
-
             destination.group = group
             destination.members = group?.members ?? []
+            destination.onExpenseSaved = { 
+                self.fetchExpenses()
+            }
         }
     }
     

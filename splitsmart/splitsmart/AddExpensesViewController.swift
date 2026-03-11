@@ -17,6 +17,7 @@ class AddExpensesViewController: UIViewController {
     var selectedPayer: String?
 
     let db = Firestore.firestore()
+    var onExpenseSaved: (() -> Void)?
     
     @IBOutlet weak var expenseNameField: UITextField!
     @IBOutlet weak var amountField: UITextField!
@@ -65,7 +66,9 @@ class AddExpensesViewController: UIViewController {
             presentAlert(title: "Missing group", message: "Try reopening the group and adding the expense again.")
             return
         }
-
+        print("💾 Saving expense to groupId: \(groupId)")  // ← add this
+            print("👥 selectedMembers: \(selectedMembers)")
+            print("💰 payer: \(selectedPayer ?? "nil")")
         guard let title = expenseNameField.text,
               let amountText = amountField.text,
               let amount = Double(amountText) else {
@@ -110,6 +113,7 @@ class AddExpensesViewController: UIViewController {
     }
 
     private func navigateBackAfterSave() {
+        onExpenseSaved?()
         if let navigationController {
             navigationController.popViewController(animated: true)
         } else {
