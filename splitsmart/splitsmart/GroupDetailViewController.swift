@@ -7,6 +7,10 @@ class GroupDetailViewController: UIViewController, UITableViewDataSource, UITabl
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tripNameLabel: UILabel!
     @IBOutlet weak var eventIdLabel: UILabel!
+    
+    @IBAction func addExpenseTapped(_ sender: UIButton) {
+        performSegue(withIdentifier: "goToAddExpense", sender: nil)
+    }
 
     var group: Group?
     var expenses: [Expense] = []
@@ -25,6 +29,12 @@ class GroupDetailViewController: UIViewController, UITableViewDataSource, UITabl
         fetchMembers()
         fetchExpenses()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchExpenses()
+    }
+
     
     func fetchGroupInfo() {
 
@@ -103,7 +113,7 @@ class GroupDetailViewController: UIViewController, UITableViewDataSource, UITabl
                     let expense = Expense(
                         id: doc.documentID,
                         title: data["title"] as? String ?? "",
-                        amountCents: data["amountCents"] as? Int ?? 0,
+                        amountCents: data["splitAmount"] as? Int ?? 0,
                         paidBy: data["paidBy"] as? String ?? ""
                     )
 
@@ -115,6 +125,17 @@ class GroupDetailViewController: UIViewController, UITableViewDataSource, UITabl
                 }
             }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
+        if segue.identifier == "goToAddExpense",
+           let destination = segue.destination as? AddExpensesViewController {
+
+            destination.group = group
+            destination.members = group?.members ?? []
+        }
+    }
+    
 }
 
 extension GroupDetailViewController {
