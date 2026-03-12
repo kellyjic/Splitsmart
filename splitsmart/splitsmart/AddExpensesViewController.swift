@@ -45,6 +45,12 @@ class AddExpensesViewController: UIViewController {
         setupPayerSegments()
         selectedMembers = members
         splitTableView.reloadData()
+    
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     func setupPayerSegments() {

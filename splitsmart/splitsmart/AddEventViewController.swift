@@ -16,7 +16,14 @@ class AddEventViewController: UIViewController {
         infoLabel.textColor = .systemGray
         infoLabel.backgroundColor = UIColor.systemGray6
         infoLabel.layer.cornerRadius = 14
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
     }
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
 
     @IBAction func createEventTapped(_ sender: UIButton) {
         guard let name = eventNameTextField.text, !name.isEmpty else {
